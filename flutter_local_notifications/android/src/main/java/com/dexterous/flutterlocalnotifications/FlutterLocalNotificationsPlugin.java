@@ -260,7 +260,7 @@ public class FlutterLocalNotificationsPlugin
     if (canCreateNotificationChannel(context, notificationChannelDetails)) {
       setupNotificationChannel(context, notificationChannelDetails);
     }
-    Intent intent = getLaunchIntent(context);
+    Intent intent = getLaunchIntent(context, notificationDetails.externalPackageName);
     intent.setAction(SELECT_NOTIFICATION);
     intent.putExtra(NOTIFICATION_ID, notificationDetails.id);
     intent.putExtra(PAYLOAD, notificationDetails.payload);
@@ -301,7 +301,7 @@ public class FlutterLocalNotificationsPlugin
 
         Intent actionIntent;
         if (action.showsUserInterface != null && action.showsUserInterface) {
-          actionIntent = getLaunchIntent(context);
+          actionIntent = getLaunchIntent(context, notificationDetails.externalPackageName);
           actionIntent.setAction(SELECT_FOREGROUND_NOTIFICATION_ACTION);
         } else {
           actionIntent = new Intent(context, ActionBroadcastReceiver.class);
@@ -984,10 +984,10 @@ public class FlutterLocalNotificationsPlugin
     builder.setTimeoutAfter(notificationDetails.timeoutAfter);
   }
 
-  private static Intent getLaunchIntent(Context context) {
-    String packageName = context.getPackageName();
+  private static Intent getLaunchIntent(Context context, @Nullable String packageName) {
+    String thisPackageName = packageName!=null ? packageName : context.getPackageName();
     PackageManager packageManager = context.getPackageManager();
-    return packageManager.getLaunchIntentForPackage(packageName);
+    return packageManager.getLaunchIntentForPackage(thisPackageName);
   }
 
   private static void setStyle(

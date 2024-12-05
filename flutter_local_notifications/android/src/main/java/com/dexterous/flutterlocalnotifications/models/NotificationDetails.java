@@ -27,6 +27,7 @@ public class NotificationDetails implements Serializable {
   private static final String TITLE = "title";
   private static final String BODY = "body";
   private static final String PAYLOAD = "payload";
+  private static final String EXTERNAL_PACKAGE_NAME = "externalPackageName";
   private static final String MILLISECONDS_SINCE_EPOCH = "millisecondsSinceEpoch";
   private static final String CALLED_AT = "calledAt";
   private static final String REPEAT_INTERVAL = "repeatInterval";
@@ -151,6 +152,7 @@ public class NotificationDetails implements Serializable {
   public Long millisecondsSinceEpoch;
   public Long calledAt;
   public String payload;
+  public String externalPackageName;
   public String groupKey;
   public Boolean setAsGroupSummary;
   public Integer groupAlertBehavior;
@@ -252,6 +254,7 @@ public class NotificationDetails implements Serializable {
         (Map<String, Object>) arguments.get(PLATFORM_SPECIFICS);
     if (platformChannelSpecifics != null) {
       notificationDetails.autoCancel = (Boolean) platformChannelSpecifics.get(AUTO_CANCEL);
+      notificationDetails.externalPackageName = (String) platformChannelSpecifics.get(EXTERNAL_PACKAGE_NAME);
       notificationDetails.ongoing = (Boolean) platformChannelSpecifics.get(ONGOING);
       notificationDetails.silent = (Boolean) platformChannelSpecifics.get(SILENT);
       notificationDetails.style =

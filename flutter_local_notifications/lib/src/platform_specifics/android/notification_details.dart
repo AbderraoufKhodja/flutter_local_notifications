@@ -101,6 +101,7 @@ class AndroidNotificationDetails {
   const AndroidNotificationDetails(
     this.channelId,
     this.channelName, {
+    this.externalPackageName,
     this.channelDescription,
     this.icon,
     this.importance = Importance.defaultImportance,
@@ -163,6 +164,12 @@ class AndroidNotificationDetails {
   ///
   /// Required for Android 8.0 or newer.
   final String channelName;
+
+  /// The externalPackageName's name.
+  ///
+  /// `WARNING`: only use this if your notification launches a different app,
+  /// else set it to null.
+  final String? externalPackageName;
 
   /// The channel's description.
   ///

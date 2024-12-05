@@ -28,8 +28,7 @@ extension MessageMapper on Message {
       };
 }
 
-extension AndroidNotificationChannelGroupMapper
-    on AndroidNotificationChannelGroup {
+extension AndroidNotificationChannelGroupMapper on AndroidNotificationChannelGroup {
   Map<String, Object?> toMap() => <String, Object?>{
         'id': id,
         'name': name,
@@ -54,13 +53,11 @@ extension AndroidNotificationChannelMapper on AndroidNotificationChannel {
         'ledColorGreen': ledColor?.green,
         'ledColorBlue': ledColor?.blue,
         'audioAttributesUsage': audioAttributesUsage.value,
-        'channelAction':
-            AndroidNotificationChannelAction.createIfNotExists.index,
+        'channelAction': AndroidNotificationChannelAction.createIfNotExists.index,
       }..addAll(_convertNotificationSoundToMap(sound));
 }
 
-Map<String, Object> _convertNotificationSoundToMap(
-    AndroidNotificationSound? sound) {
+Map<String, Object> _convertNotificationSoundToMap(AndroidNotificationSound? sound) {
   if (sound is RawResourceAndroidNotificationSound) {
     return <String, Object>{
       'sound': sound.sound,
@@ -176,6 +173,7 @@ extension AndroidNotificationDetailsMapper on AndroidNotificationDetails {
         'icon': icon,
         'channelId': channelId,
         'channelName': channelName,
+        'externalPackageName': externalPackageName,
         'channelDescription': channelDescription,
         'channelShowBadge': channelShowBadge,
         'channelAction': channelAction.index,
@@ -232,38 +230,32 @@ extension AndroidNotificationDetailsMapper on AndroidNotificationDetails {
     if (styleInformation is BigPictureStyleInformation) {
       return <String, Object?>{
         'style': AndroidNotificationStyle.bigPicture.index,
-        'styleInformation':
-            (styleInformation as BigPictureStyleInformation?)?.toMap(),
+        'styleInformation': (styleInformation as BigPictureStyleInformation?)?.toMap(),
       };
     } else if (styleInformation is BigTextStyleInformation) {
       return <String, Object?>{
         'style': AndroidNotificationStyle.bigText.index,
-        'styleInformation':
-            (styleInformation as BigTextStyleInformation?)?.toMap(),
+        'styleInformation': (styleInformation as BigTextStyleInformation?)?.toMap(),
       };
     } else if (styleInformation is InboxStyleInformation) {
       return <String, Object?>{
         'style': AndroidNotificationStyle.inbox.index,
-        'styleInformation':
-            (styleInformation as InboxStyleInformation?)?.toMap(),
+        'styleInformation': (styleInformation as InboxStyleInformation?)?.toMap(),
       };
     } else if (styleInformation is MessagingStyleInformation) {
       return <String, Object?>{
         'style': AndroidNotificationStyle.messaging.index,
-        'styleInformation':
-            (styleInformation as MessagingStyleInformation?)?.toMap(),
+        'styleInformation': (styleInformation as MessagingStyleInformation?)?.toMap(),
       };
     } else if (styleInformation is MediaStyleInformation) {
       return <String, Object?>{
         'style': AndroidNotificationStyle.media.index,
-        'styleInformation':
-            (styleInformation as MediaStyleInformation?)?.toMap(),
+        'styleInformation': (styleInformation as MediaStyleInformation?)?.toMap(),
       };
     } else if (styleInformation is DefaultStyleInformation) {
       return <String, Object?>{
         'style': AndroidNotificationStyle.defaultStyle.index,
-        'styleInformation':
-            (styleInformation as DefaultStyleInformation?)?.toMap(),
+        'styleInformation': (styleInformation as DefaultStyleInformation?)?.toMap(),
       };
     } else {
       return <String, Object>{
@@ -283,8 +275,7 @@ extension AndroidNotificationDetailsMapper on AndroidNotificationDetails {
     };
   }
 
-  Map<String, Object> _convertActionsToMap(
-      List<AndroidNotificationAction>? actions) {
+  Map<String, Object> _convertActionsToMap(List<AndroidNotificationAction>? actions) {
     if (actions == null) {
       return <String, Object>{};
     }
@@ -306,8 +297,7 @@ extension AndroidNotificationDetailsMapper on AndroidNotificationDetails {
               'showsUserInterface': e.showsUserInterface,
               'allowGeneratedReplies': e.allowGeneratedReplies,
               'inputs': e.inputs
-                  .map((AndroidNotificationActionInput input) =>
-                      _convertInputToMap(input))
+                  .map((AndroidNotificationActionInput input) => _convertInputToMap(input))
                   .toList(),
               'cancelNotification': e.cancelNotification,
             },
@@ -316,8 +306,7 @@ extension AndroidNotificationDetailsMapper on AndroidNotificationDetails {
     };
   }
 
-  Map<String, dynamic> _convertInputToMap(
-          AndroidNotificationActionInput input) =>
+  Map<String, dynamic> _convertInputToMap(AndroidNotificationActionInput input) =>
       <String, dynamic>{
         'choices': input.choices,
         'allowFreeFormInput': input.allowFreeFormInput,
